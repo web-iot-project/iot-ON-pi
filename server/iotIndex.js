@@ -1,9 +1,19 @@
 var Gpio = require('onoff').Gpio
 var LED = new Gpio(4, 'out') //use GPIO pin 4, change the 4 to respecify the pin number
-var blinkInterval = setInterval(blinkLED, 250); // this sets the blink interval to 250ms
+let blinkInterval // = setInterval(blinkLED, 250); // this sets the blink interval to 250ms
 const express = require ('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
+const oi = require("socket.io-client")
+
+
+var socket = oi.connect("http://192.168.1.169:3456", {reconnect: true})
+socket.on("FromServer", function(data){
+console.log(data)
+data ? (blinkInterval= setInterval(blinkLED, 250)) : blinkInterval = null 
+})
+console.log('hi')
+//let turnOnLED=false
 
 
 function blinkLED() { //function to start blinking
@@ -21,3 +31,5 @@ function blinkLED() { //function to start blinking
   }
   
   setTimeout(endBlink, 10000); //stop blinking after 5 seconds
+
+
