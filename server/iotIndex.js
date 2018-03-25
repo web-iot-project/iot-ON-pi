@@ -7,12 +7,12 @@ const bodyParser = require('body-parser')
 const oi = require("socket.io-client")
 
 
-var socket = oi.connect("http://192.168.1.169:3456", {reconnect: true})
-socket.on("FromServer", function(data){
-console.log(data)
-data ? (blinkInterval= setInterval(blinkLED, 250)) : blinkInterval = null 
-})
-console.log('hi')
+//var socket = oi.connect("http://192.168.1.169:3456", {reconnect: true})
+//socket.on("FromServer", function(data){
+//console.log(data)
+//data ? (blinkInterval= setInterval(blinkLED, 250)) : blinkInterval = null 
+//})
+//console.log('hi')
 //let turnOnLED=false
 
 
