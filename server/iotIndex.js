@@ -1,17 +1,19 @@
 var Gpio = require('onoff').Gpio
-var MOTOR = new Gpio(4, 'out') //use GPIO pin 4, change the 4 to respecify the pin number
-let blinkInterval = setInterval(blinkLED, 250); // this sets the blink interval to 250ms
+var MOTOR1 = new Gpio(4, 'out') //use GPIO pin 4, change the 4 to respecify the pin number
+var MOTOR2 = new Gpio(17, 'out')
+//let blinkInterval = setInterval(blinkLED, 250); // this sets the blink interval to 250ms
 const express = require ('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const oi = require("socket.io-client")
-
-
+MOTOR1.writeSync(1);
+MOTOR2.writeSync(1);
 var socket = oi.connect("http://192.168.1.169:3456", {reconnect: true})
 socket.on("FromServer", function(data){
 console.log(data)
-data ? (writeSync(1)) : wirteSync(0)
+data ? (MOTOR2.writeSync(0) & MOTOR1.writeSync(0)) : (MOTOR2.writeSync(1) & MOTOR1.writeSync(1))
 })
+
 console.log('Logging after socket fired off.')
 
 
