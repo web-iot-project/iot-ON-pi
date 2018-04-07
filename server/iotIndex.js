@@ -11,7 +11,21 @@ MOTOR2.writeSync(1);
 var socket = oi.connect("http://192.168.1.169:3456", {reconnect: true})
 socket.on("FromServer", function(data){
 console.log(data)
-data ? (MOTOR2.writeSync(0) & MOTOR1.writeSync(0)) : (MOTOR2.writeSync(1) & MOTOR1.writeSync(1))
+switch(data){
+case 'w':
+MOTOR2.writeSync(0) & MOTOR1.writeSync(0)
+break;
+case 'd':
+MOTOR2.writeSync(0)
+break;
+case 'a':
+MOTOR1.writeSync(0)
+break;
+default:
+ MOTOR2.writeSync(1) & MOTOR1.writeSync(1)
+
+
+}
 })
 
 console.log('Logging after socket fired off.')
